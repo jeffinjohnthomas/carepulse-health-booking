@@ -125,7 +125,7 @@ export default function HospitalDetails() {
                     Specialties & Departments
                   </h3>
                   <div className="grid grid-cols-2 gap-4">
-                    {hospital.services?.map(dept => (
+                    {(hospital.departments?.length ? hospital.departments : hospital.services)?.map(dept => (
                       <div key={dept} className="flex items-center space-x-3 p-4 bg-white rounded-2xl border border-slate-100 shadow-sm">
                         <CheckCircle2 className="text-blue-600" size={20} />
                         <span className="font-bold text-slate-700">{dept}</span>
