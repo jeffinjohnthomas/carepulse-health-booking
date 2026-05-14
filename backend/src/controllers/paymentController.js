@@ -66,4 +66,11 @@ const verifySignature = async (req, res) => {
   }
 };
 
-module.exports = { createOrder, verifySignature };
+// @desc    Get Razorpay Key
+// @route   GET /api/payments/get-key
+// @access  Private
+const getRazorpayKey = (req, res) => {
+  res.status(200).json({ key: process.env.RAZORPAY_KEY_ID || 'dummy_key' });
+};
+
+module.exports = { createOrder, verifySignature, getRazorpayKey };

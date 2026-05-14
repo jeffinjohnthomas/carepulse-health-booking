@@ -54,10 +54,11 @@ export default function Booking() {
       setLoading(true);
       setError(null);
 
-      // 1. Create order on backend
-      const { data: orderData } = await api.post('/payments/create-order', {
-        amount: tokenFee
-      });
+      // 1. Fetch Key and Create order
+      const [{ data: keyData }, { data: orderData }] = await Promise.all([
+        api.get('/payments/get-key'),
+        api.post('/payments/create-order', { amount: tokenFee })
+      ]);
 
       if (!orderData || !orderData.success) {
         throw new Error('Failed to create order');
@@ -65,7 +66,7 @@ export default function Booking() {
 
       // 2. Open Razorpay Checkout
       const options = {
-        key: import.meta.env.VITE_RAZORPAY_KEY_ID || 'rzp_test_placeholder', // You must set VITE_RAZORPAY_KEY_ID in frontend .env
+        key: keyData.key || 'rzp_test_placeholder', // Dynamically injected from backend
         amount: orderData.amount,
         currency: orderData.currency,
         name: "HealthPortal",
