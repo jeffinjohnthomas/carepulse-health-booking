@@ -145,6 +145,9 @@ const googleAuth = async (req, res) => {
     const { email, name } = payload;
 
     let user = await User.findOne({ email });
+    const adminEmail = process.env.EMAIL_USER ? process.env.EMAIL_USER.trim().toLowerCase() : 'jeffinj427@gmail.com';
+    const isUserAdmin = email.trim().toLowerCase() === adminEmail;
+
     if (!user) {
       user = await User.create({
         name,
@@ -152,8 +155,14 @@ const googleAuth = async (req, res) => {
         phone: 'GoogleAuth_' + Date.now(),
         password: crypto.randomBytes(16).toString('hex'),
         isEmailVerified: true,
-        authProvider: 'google'
+        authProvider: 'google',
+        role: isUserAdmin ? 'admin' : 'patient'
       });
+    } else {
+      if (isUserAdmin && user.role !== 'admin') {
+        user.role = 'admin';
+        await user.save();
+      }
     }
     res.json({ _id: user.id, name: user.name, email: user.email, role: user.role, doctorId: user.doctorId, token: generateToken(user._id) });
   } catch (error) {
