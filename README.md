@@ -1,4 +1,4 @@
-# Online Health Checkup Booking Portal
+# CarePulse: AI-Driven Digital Health Platform
 
 This is a full-stack MERN application (MongoDB, Express.js, React.js, Node.js) with a modern UI built using Tailwind CSS and Framer Motion.
 
