@@ -6,7 +6,7 @@ import Peer from 'simple-peer';
 import { PhoneOff, Mic, MicOff, Video, VideoOff, Send, MessageSquare, RefreshCw } from 'lucide-react';
 import api from '../../services/api';
 
-const SOCKET_URL = 'http://localhost:5000';
+const SOCKET_URL = import.meta.env.MODE === 'production' ? '/' : 'http://localhost:5000';
 
 export default function TelemedicineRoom() {
   const { appointmentId } = useParams();
