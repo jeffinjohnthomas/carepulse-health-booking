@@ -17,6 +17,8 @@ export default function Booking() {
   const [formData, setFormData] = useState({
     date: '',
     timeSlot: '',
+    consultationType: 'In-Person',
+    visitType: 'First Consultation',
     symptoms: ''
   });
 
@@ -82,6 +84,8 @@ export default function Booking() {
               hospitalName: hospitalName,
               date: formData.date,
               timeSlot: formData.timeSlot,
+              consultationType: formData.consultationType,
+              visitType: formData.visitType,
               symptoms: formData.symptoms,
               razorpay_order_id: response.razorpay_order_id,
               razorpay_payment_id: response.razorpay_payment_id,
@@ -199,6 +203,20 @@ export default function Booking() {
                             ))}
                           </select>
                         </div>
+                      </div>
+                    </div>
+
+                    <div className="space-y-2">
+                      <label className="text-sm font-bold text-slate-700">Consultation Type</label>
+                      <div className="flex gap-4">
+                        <label className={`flex-1 flex items-center justify-center p-3 rounded-xl border cursor-pointer transition-all ${formData.consultationType === 'In-Person' ? 'bg-blue-50 border-blue-600 text-blue-700 font-bold' : 'bg-white border-slate-200 text-slate-600'}`}>
+                          <input type="radio" name="consultationType" value="In-Person" className="hidden" onChange={(e) => setFormData({...formData, consultationType: e.target.value})} checked={formData.consultationType === 'In-Person'} />
+                          In-Person Visit
+                        </label>
+                        <label className={`flex-1 flex items-center justify-center p-3 rounded-xl border cursor-pointer transition-all ${formData.consultationType === 'Online Video Call' ? 'bg-blue-50 border-blue-600 text-blue-700 font-bold' : 'bg-white border-slate-200 text-slate-600'}`}>
+                          <input type="radio" name="consultationType" value="Online Video Call" className="hidden" onChange={(e) => setFormData({...formData, consultationType: e.target.value})} checked={formData.consultationType === 'Online Video Call'} />
+                          Online Video Call
+                        </label>
                       </div>
                     </div>
 

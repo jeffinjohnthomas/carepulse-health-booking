@@ -91,32 +91,7 @@ export default function SettingsTab({ user }) {
             </div>
           </div>
 
-          <div className="pt-6 border-t border-slate-100">
-            <h3 className="text-lg font-bold text-slate-900 mb-4">Health Metrics</h3>
-            <div className="grid md:grid-cols-3 gap-6">
-              <div>
-                <label className="block text-sm font-bold text-slate-700 mb-2">Heart Rate (bpm)</label>
-                <input 
-                  type="number" name="heartRate" value={formData.heartRate} onChange={handleChange} placeholder="e.g. 72"
-                  className="w-full p-3 rounded-xl border border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all" 
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-bold text-slate-700 mb-2">Blood Sugar (mg/dL)</label>
-                <input 
-                  type="number" name="bloodSugar" value={formData.bloodSugar} onChange={handleChange} placeholder="e.g. 95"
-                  className="w-full p-3 rounded-xl border border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all" 
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-bold text-slate-700 mb-2">Sleep Score (/100)</label>
-                <input 
-                  type="number" name="sleepScore" value={formData.sleepScore} onChange={handleChange} placeholder="e.g. 85"
-                  className="w-full p-3 rounded-xl border border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all" 
-                />
-              </div>
-            </div>
-          </div>
+
 
           <div className="pt-6 border-t border-slate-100 flex justify-end">
             <button type="submit" disabled={loading} className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-xl font-bold flex items-center transition-colors disabled:opacity-50">

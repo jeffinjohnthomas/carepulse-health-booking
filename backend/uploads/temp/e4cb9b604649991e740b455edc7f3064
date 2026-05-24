@@ -1,0 +1,35 @@
+AI Medical Analysis Report
+Patient: John Mathew
+Age: 29
+Gender: Male
+Report Type: Complete Blood Test
+Test Date: 22 May 2026
+Overall Health Snapshot
+Category	Status
+Blood Sugar	Slightly Elevated
+Cholesterol	Borderline High
+Vitamin D	Deficient
+Liver Function	Normal
+Kidney Function	Normal
+Thyroid	Normal
+Key Biomarkers
+Test	Result	Normal Range	Status
+Hemoglobin	14.2 g/dL	13.5 – 17.5	Normal
+Fasting Blood Sugar	112 mg/dL	70 – 99	Elevated
+HbA1c	5.9%	< 5.7%	Prediabetes Risk
+Total Cholesterol	224 mg/dL	< 200	High
+Vitamin D	14 ng/mL	30 – 100	Deficient
+AI Medical Insights
+Prediabetes Risk Detected
+Your fasting blood sugar and HbA1c levels are slightly above the recommended range. Consider reducing sugar intake, improving exercise consistency, and retesting in 3 months.
+Cholesterol Needs Attention
+LDL cholesterol and triglycerides are elevated. Lifestyle changes including diet improvement and regular physical activity are recommended.
+Vitamin D Deficiency
+Vitamin D levels are significantly low. Consider physician-guided supplementation and sunlight exposure.
+Questions To Ask Your Doctor
+•	Should lifestyle intervention begin immediately for prediabetes?
+•	Is medication necessary for cholesterol management?
+•	What Vitamin D dosage is appropriate?
+•	When should these tests be repeated?
+Important Disclaimer
+This report is AI-generated and intended for informational purposes only. It does not replace consultation with a licensed medical professional.

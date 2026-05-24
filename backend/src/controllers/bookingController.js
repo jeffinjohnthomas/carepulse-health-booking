@@ -7,9 +7,9 @@ const crypto = require('crypto');
 // @access  Private
 const createBooking = async (req, res) => {
   try {
-    const { doctorId, hospitalId, hospitalName, date, timeSlot, symptoms, razorpay_order_id, razorpay_payment_id, razorpay_signature } = req.body;
+    const { doctorId, hospitalId, hospitalName, date, timeSlot, consultationType, visitType, symptoms, razorpay_order_id, razorpay_payment_id, razorpay_signature } = req.body;
 
-    if (!doctorId || !hospitalId || !hospitalName || !date || !timeSlot || !razorpay_order_id || !razorpay_payment_id || !razorpay_signature) {
+    if (!doctorId || !hospitalId || !hospitalName || !date || !timeSlot || !consultationType || !visitType || !razorpay_order_id || !razorpay_payment_id || !razorpay_signature) {
       return res.status(400).json({ message: 'Please provide all required fields including payment details' });
     }
 
@@ -31,6 +31,8 @@ const createBooking = async (req, res) => {
       hospitalName,
       date,
       timeSlot,
+      consultationType,
+      visitType,
       symptoms,
       paymentStatus: 'Paid',
       amount: 50 // Fixed Token Amount

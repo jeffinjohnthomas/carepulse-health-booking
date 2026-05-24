@@ -9,7 +9,27 @@ dotenv.config();
 
 // Connect to database (deferred until start)
 
+const http = require('http');
+const { Server } = require('socket.io');
+
 const app = express();
+const server = http.createServer(app);
+const io = new Server(server, {
+  cors: {
+    origin: '*',
+    methods: ['GET', 'POST']
+  }
+});
+
+// Pass io to request object if needed in controllers
+app.use((req, res, next) => {
+  req.io = io;
+  next();
+});
+
+// Initialize Socket Controller
+const initSockets = require('./src/controllers/socketController');
+initSockets(io);
 
 // Body parser
 app.use(express.json());
@@ -33,6 +53,8 @@ const adminRoutes = require('./src/routes/adminRoutes');
 const doctorDashboardRoutes = require('./src/routes/doctorDashboardRoutes');
 const recordRoutes = require('./src/routes/recordRoutes');
 const prescriptionRoutes = require('./src/routes/prescriptionRoutes');
+const aiRoutes = require('./src/routes/aiRoutes');
+const healthMetricRoutes = require('./src/routes/healthMetricRoutes');
 
 // Mount routers
 app.use('/api/auth', authRoutes);
@@ -47,6 +69,8 @@ app.use('/api/admin', adminRoutes);
 app.use('/api/doctor-dashboard', doctorDashboardRoutes);
 app.use('/api/records', recordRoutes);
 app.use('/api/prescriptions', prescriptionRoutes);
+app.use('/api/ai', aiRoutes);
+app.use('/api/health-metrics', healthMetricRoutes);
 
 // Serve frontend in production
 if (process.env.NODE_ENV === 'production') {
@@ -61,10 +85,16 @@ if (process.env.NODE_ENV === 'production') {
   });
 }
 
+// Global error handler for debugging
+app.use((err, req, res, next) => {
+  console.error("Global Error Handler caught:", err.message, err.stack, err);
+  res.status(500).json({ message: err.message || 'Server Error' });
+});
+
 const PORT = process.env.PORT || 5000;
 
 connectDB().then(() => {
-  app.listen(PORT, () => {
+  server.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
   });
 }).catch(err => {

@@ -27,6 +27,18 @@ const BookingSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  consultationType: {
+    type: String,
+    enum: ['In-Person', 'Online Video Call'],
+    required: true,
+    default: 'In-Person'
+  },
+  visitType: {
+    type: String,
+    enum: ['First Consultation', 'Followup Visit', 'Routine Checkup', 'Emergency'],
+    required: true,
+    default: 'First Consultation'
+  },
   symptoms: {
     type: String,
     required: true

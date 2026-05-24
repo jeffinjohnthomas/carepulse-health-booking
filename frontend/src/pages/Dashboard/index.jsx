@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { LayoutDashboard, CalendarDays, FileText, Pill, Settings, LogOut } from 'lucide-react';
+import { LayoutDashboard, CalendarDays, FileText, Pill, Settings, LogOut, Bot } from 'lucide-react';
 import { useSelector, useDispatch } from 'react-redux';
 import { logout } from '../../features/authSlice';
 import { useNavigate } from 'react-router-dom';
@@ -11,6 +11,7 @@ import AppointmentsTab from './AppointmentsTab';
 import RecordsTab from './RecordsTab';
 import PrescriptionsTab from './PrescriptionsTab';
 import SettingsTab from './SettingsTab';
+import AITab from './AITab';
 
 export default function Dashboard() {
   const { user } = useSelector((state) => state.auth);
@@ -82,6 +83,7 @@ export default function Dashboard() {
     { id: 'overview', label: 'Overview', icon: LayoutDashboard },
     { id: 'appointments', label: 'Appointments', icon: CalendarDays },
     { id: 'records', label: 'Health Records', icon: FileText },
+    { id: 'ai', label: 'AI Analysis', icon: Bot },
     { id: 'prescriptions', label: 'Prescriptions', icon: Pill },
     { id: 'settings', label: 'Settings', icon: Settings },
   ];
@@ -95,14 +97,19 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 pt-24 pb-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto flex flex-col md:flex-row gap-8">
+    <div className="min-h-screen bg-slate-50 pt-24 pb-12 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+      {/* Background Decorative Gradients */}
+      <div className="absolute top-0 left-0 w-full h-96 bg-gradient-to-b from-blue-50/50 to-transparent pointer-events-none"></div>
+      <div className="absolute -top-40 -right-40 w-96 h-96 bg-blue-400/10 rounded-full blur-3xl pointer-events-none"></div>
+      <div className="absolute top-40 -left-40 w-96 h-96 bg-indigo-400/10 rounded-full blur-3xl pointer-events-none"></div>
+      
+      <div className="max-w-7xl mx-auto flex flex-col md:flex-row gap-8 relative z-10">
         
         {/* Sidebar Navigation */}
         <div className="w-full md:w-64 shrink-0">
-          <div className="bg-white rounded-3xl p-4 shadow-sm border border-slate-100 sticky top-28">
-            <div className="mb-8 p-4 text-center border-b border-slate-100">
-              <div className="w-16 h-16 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-3">
+          <div className="bg-white/70 backdrop-blur-xl rounded-[2rem] p-4 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-white sticky top-28">
+            <div className="mb-8 p-4 text-center border-b border-slate-100/50">
+              <div className="w-16 h-16 bg-gradient-to-br from-blue-100 to-indigo-100 text-blue-600 rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-3 shadow-inner">
                 {user?.name?.charAt(0).toUpperCase()}
               </div>
               <h3 className="font-bold text-slate-900">{user?.name}</h3>
@@ -116,8 +123,10 @@ export default function Dashboard() {
                   <button
                     key={tab.id}
                     onClick={() => setActiveTab(tab.id)}
-                    className={`w-full flex items-center px-4 py-3 rounded-2xl text-sm font-semibold transition-all duration-200 ${
-                      isActive ? 'bg-blue-600 text-white shadow-md shadow-blue-200' : 'text-slate-600 hover:bg-slate-50'
+                    className={`w-full flex items-center px-4 py-3.5 rounded-2xl text-sm font-semibold transition-all duration-300 ${
+                      isActive 
+                        ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg shadow-blue-500/30 scale-[1.02]' 
+                        : 'text-slate-500 hover:bg-slate-100/50 hover:text-slate-800'
                     }`}
                   >
                     <Icon size={18} className={`mr-3 ${isActive ? 'text-white' : 'text-slate-400'}`} />
@@ -149,6 +158,7 @@ export default function Dashboard() {
               {activeTab === 'overview' && <OverviewTab appointments={appointments} records={records} user={user} />}
               {activeTab === 'appointments' && <AppointmentsTab appointments={appointments} onCancel={setCancelModalId} />}
               {activeTab === 'records' && <RecordsTab records={records} fetchRecords={fetchRecords} />}
+              {activeTab === 'ai' && <AITab />}
               {activeTab === 'prescriptions' && <PrescriptionsTab prescriptions={prescriptions} />}
               {activeTab === 'settings' && <SettingsTab user={user} />}
             </motion.div>

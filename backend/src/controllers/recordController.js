@@ -15,7 +15,8 @@ const uploadRecord = async (req, res) => {
       return res.status(400).json({ message: 'Title is required' });
     }
 
-    const fileUrl = `/uploads/${req.file.filename}`;
+    // Cloudinary returns the secure URL in req.file.path
+    const fileUrl = req.file.path;
 
     const record = await MedicalRecord.create({
       user: req.user._id,
@@ -26,8 +27,10 @@ const uploadRecord = async (req, res) => {
 
     res.status(201).json(record);
   } catch (error) {
-    console.error('Upload Error:', error);
-    res.status(500).json({ message: 'Server Error uploading record' });
+    console.error('Upload Error Message:', error.message);
+    console.error('Upload Error Stack:', error.stack);
+    console.error('Upload Error Full:', error);
+    res.status(500).json({ message: error.message || 'Server Error uploading record' });
   }
 };
 
